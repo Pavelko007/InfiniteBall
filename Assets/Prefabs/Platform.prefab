@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21241050}
   - 50: {fileID: 5012356}
   - 61: {fileID: 6197808}
+  - 114: {fileID: 11428626}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Untagged
@@ -25,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 128712}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.21, y: -1.76, z: 0}
+  m_LocalPosition: {x: -5.27, y: -2.81, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -42,11 +43,11 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 7
+  m_Constraints: 5
 --- !u!61 &6197808
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -61,6 +62,20 @@ BoxCollider2D:
   m_Offset: {x: 1.25, y: 0.3125}
   serializedVersion: 2
   m_Size: {x: 2.5, y: 0.625}
+--- !u!114 &11428626
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 128712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bec4ecdeea28094abf854ef573f77af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallDelay: 1
+  numJumps: 1
+  infiniteJumps: 0
 --- !u!212 &21241050
 SpriteRenderer:
   m_ObjectHideFlags: 1
