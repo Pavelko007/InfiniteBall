@@ -19,7 +19,8 @@ public class FallingPlatform : MonoBehaviour
     {
         if (infiniteJumps) return;
 
-        StartCoroutine(Fall());
+        numJumps--;
+        if(numJumps == 0) StartCoroutine(Fall());
     }
 
     IEnumerator Fall()
