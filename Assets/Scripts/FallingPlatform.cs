@@ -1,31 +1,34 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class FallingPlatform : MonoBehaviour
+namespace InfiniteBall
 {
-    private Rigidbody2D rb2d;
-
-    [SerializeField] private float fallDelay;
-    [SerializeField] private int numJumps;
-    [SerializeField] private bool infiniteJumps = false;
-
-	// Use this for initialization
-	void Start ()
-	{
-	    rb2d = GetComponent<Rigidbody2D>();
-	}
-
-    void OnCollisionEnter2D(Collision2D col)
+    public class FallingPlatform : MonoBehaviour
     {
-        if (infiniteJumps) return;
+        private Rigidbody2D rb2d;
 
-        numJumps--;
-        if(numJumps == 0) StartCoroutine(Fall());
-    }
+        [SerializeField] private float fallDelay;
+        [SerializeField] private int numJumps;
+        [SerializeField] private bool infiniteJumps = false;
 
-    IEnumerator Fall()
-    {
-        yield return  new WaitForSeconds(fallDelay);
-        rb2d.isKinematic = false;
+        // Use this for initialization
+        void Start ()
+        {
+            rb2d = GetComponent<Rigidbody2D>();
+        }
+
+        void OnCollisionEnter2D(Collision2D col)
+        {
+            if (infiniteJumps) return;
+
+            numJumps--;
+            if(numJumps == 0) StartCoroutine(Fall());
+        }
+
+        IEnumerator Fall()
+        {
+            yield return  new WaitForSeconds(fallDelay);
+            rb2d.isKinematic = false;
+        }
     }
 }
