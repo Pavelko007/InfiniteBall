@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace UnityStandardAssets._2D
+namespace InfiniteBall
 {
     public class Camera2DFollow : MonoBehaviour
     {
