@@ -5,16 +5,18 @@ namespace InfiniteBall
     public class BallMovement : MonoBehaviour
     {
         [SerializeField] private float horSpeed = 5;
-        [SerializeField] private float vertSpeed = 1;
+        [SerializeField] public float JumpHeight = 1;
 
         private Rigidbody2D rb;
         private bool isGrounded;
         private float horAxis;
+        private float impulse;
         private const int VertSpeedMult = 100;
 
-        void Start()
+        void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
+            impulse = Mathf.Sqrt(2f * -Physics2D.gravity.y * JumpHeight) / rb.mass;
         }
 
         void FixedUpdate()
@@ -31,7 +33,7 @@ namespace InfiniteBall
             if (Input.GetButtonDown("Jump") &&
                 isGrounded)
             {
-                rb.AddForce(Vector2.up * vertSpeed * rb.mass * VertSpeedMult);
+                rb.AddForce(Vector2.up * impulse, ForceMode2D.Impulse);
             }
         }
 
