@@ -39,12 +39,18 @@ namespace InfiniteBall
 
         void OnCollisionEnter2D(Collision2D collision2D)
         {
-            isGrounded = true;
+            SetGrounded(collision2D, true);
         }
 
         void OnCollisionExit2D(Collision2D collision2D)
         {
-            isGrounded = false;
+            SetGrounded(collision2D, false);
+        }
+
+        private void SetGrounded(Collision2D collision2D, bool grounded)
+        {
+            if (collision2D.gameObject.tag != "platform") return;
+            isGrounded = grounded;
         }
     }
 }
