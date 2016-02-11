@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using InfiniteBall;
 using InfiniteBall.Extentions;
+using InfiniteBall.Pooling;
 
 public class Spawner : MonoBehaviour
 {
@@ -20,8 +21,8 @@ public class Spawner : MonoBehaviour
 	void Awake ()
 	{
 	    SpawnBall();
+	    rightmostPlatform = GameObjectUtil.Instantiate(platformPrefab.gameObject, Vector3.zero).transform;
 
-	    rightmostPlatform = Instantiate(platformPrefab, Vector3.zero, Quaternion.identity) as Transform;
         platforms.Add(rightmostPlatform);
 	    //Instantiate(coinTransform, 
      //       rightmostPlatform.GetComponent<SpriteRenderer>().bounds.max + Vector3.up * jumpHeight, 
@@ -43,7 +44,7 @@ public class Spawner : MonoBehaviour
         SpriteRenderer leftmostPlatformSR = leftmostPlatform.GetComponent<SpriteRenderer>();
         if (!leftmostPlatformSR.IsVisibleFrom(Camera.main))
         {
-            Destroy(leftmostPlatform.gameObject);
+            GameObjectUtil.Destroy(leftmostPlatform.gameObject);
             platforms.Remove(leftmostPlatform);
         }
     }
