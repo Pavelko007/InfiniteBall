@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using InfiniteBall;
 using InfiniteBall.Extentions;
 using InfiniteBall.Pooling;
+using Random = UnityEngine.Random;
 
 public class Spawner : MonoBehaviour
 {
@@ -9,17 +11,16 @@ public class Spawner : MonoBehaviour
     [SerializeField] private Transform ballPrefab;
     [SerializeField] private Transform coinTransform;
 
-    private SpriteRenderer rightmostPlatformSR;
+    private SpriteRenderer lastPlatformSR;
     private Sprite platformSprite;
     private float jumpHeight;
-
-
+    
     // Use this for initialization
-	void Awake ()
+	void Start ()
 	{
 	    SpawnBall();
 
-	    SpawnPlatform(Vector3.zero);
+	    SpawnPlatform(Vector3.zero, PlatformType.Steady);
 
 	    SpawnPlatforms();
 	}
@@ -41,20 +42,22 @@ public class Spawner : MonoBehaviour
 
     private void SpawnPlatforms()
     {
-        while (rightmostPlatformSR.IsVisibleFrom(Camera.main))
+        while (lastPlatformSR.IsVisibleFrom(Camera.main))
         {
-            Vector3 nextPos = rightmostPlatformSR.transform.position + Vector3.right * platformSprite.bounds.size.x * 1.5f;
+            Vector3 nextPos = lastPlatformSR.transform.position + Vector3.right * platformSprite.bounds.size.x * 1.5f;
 
-            SpawnPlatform(nextPos);
+            PlatformType platformType = (PlatformType)Random.Range(0, Enum.GetValues(typeof(PlatformType)).Length);
+            SpawnPlatform(nextPos, platformType);
         }
     }
 
-    private void SpawnPlatform(Vector3 nextPos)
+    private void SpawnPlatform(Vector3 nextPos, PlatformType platformType)
     {
-        rightmostPlatformSR = GameObjectUtil.Instantiate(platformPrefab.gameObject, nextPos)
+        lastPlatformSR = GameObjectUtil.Instantiate(platformPrefab.gameObject, nextPos)
             .GetComponent<SpriteRenderer>();
 
-        GameObjectUtil.Instantiate(coinTransform.gameObject,
-               rightmostPlatformSR.bounds.center + Vector3.up * jumpHeight);
+        lastPlatformSR.GetComponent<FallingPlatform>().SetupPlatform(platformType);
+
+        GameObjectUtil.Instantiate(coinTransform.gameObject, lastPlatformSR.bounds.center + Vector3.up * jumpHeight);
     }
 }

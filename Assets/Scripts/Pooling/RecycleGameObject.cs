@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace InfiniteBall.Pooling
@@ -8,7 +7,6 @@ namespace InfiniteBall.Pooling
 
         void Restart();
         void Shutdown();
-
     }
 
     public class RecycleGameObject : MonoBehaviour {
@@ -25,7 +23,6 @@ namespace InfiniteBall.Pooling
                 }
             }
         }
-
 
         public void Restart(){
             gameObject.SetActive (true);
