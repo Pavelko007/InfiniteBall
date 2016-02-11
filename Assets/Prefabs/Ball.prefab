@@ -74,8 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horSpeed: 5
-  vertSpeed: 5
-  JumpHeight: 5
+  JumpHeight: 3
 --- !u!212 &21285714
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -123,7 +122,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: JumpHeight
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

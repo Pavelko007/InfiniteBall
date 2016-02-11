@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using InfiniteBall;
 using InfiniteBall.Extentions;
 
@@ -12,13 +14,15 @@ public class Spawner : MonoBehaviour
     private Sprite platformSprite;
     private float jumpHeight;
 
+    private List<Transform> platforms = new List<Transform>();
+
     // Use this for initialization
 	void Awake ()
 	{
 	    SpawnBall();
 
 	    rightmostPlatform = Instantiate(platformPrefab, Vector3.zero, Quaternion.identity) as Transform;
-        
+        platforms.Add(rightmostPlatform);
 	    //Instantiate(coinTransform, 
      //       rightmostPlatform.GetComponent<SpriteRenderer>().bounds.max + Vector3.up * jumpHeight, 
      //       Quaternion.identity);
@@ -27,9 +31,22 @@ public class Spawner : MonoBehaviour
 	}
 
     // Update is called once per frame
-    void Update () {
+    void Update ()
+    {
+        DeletePlatforms();
 	    SpawnPlatforms();
 	}
+
+    private void DeletePlatforms()
+    {
+        var leftmostPlatform = platforms.Aggregate((c, d) => c.position.x < d.position.x ? c : d);
+        SpriteRenderer leftmostPlatformSR = leftmostPlatform.GetComponent<SpriteRenderer>();
+        if (!leftmostPlatformSR.IsVisibleFrom(Camera.main))
+        {
+            Destroy(leftmostPlatform.gameObject);
+            platforms.Remove(leftmostPlatform);
+        }
+    }
 
     private void SpawnBall()
     {
@@ -46,6 +63,7 @@ public class Spawner : MonoBehaviour
         {
             Vector3 nextPos = rightmostPlatform.position + Vector3.right * platformSprite.bounds.size.x * 1.5f;
             rightmostPlatform = Instantiate(platformPrefab, nextPos, Quaternion.identity) as Transform;
+            platforms.Add(rightmostPlatform);
         }
     }
 }
