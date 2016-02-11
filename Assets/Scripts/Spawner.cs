@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 using InfiniteBall;
 using InfiniteBall.Extentions;
 using InfiniteBall.Pooling;
@@ -11,7 +9,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] private Transform ballPrefab;
     [SerializeField] private Transform coinTransform;
 
-    private Transform rightmostPlatform;
+    private SpriteRenderer rightmostPlatformSR;
     private Sprite platformSprite;
     private float jumpHeight;
 
@@ -20,11 +18,8 @@ public class Spawner : MonoBehaviour
 	void Awake ()
 	{
 	    SpawnBall();
-	    rightmostPlatform = GameObjectUtil.Instantiate(platformPrefab.gameObject, Vector3.zero).transform;
 
-	    //Instantiate(coinTransform, 
-     //       rightmostPlatform.GetComponent<SpriteRenderer>().bounds.max + Vector3.up * jumpHeight, 
-     //       Quaternion.identity);
+	    SpawnPlatform(Vector3.zero);
 
 	    SpawnPlatforms();
 	}
@@ -46,10 +41,20 @@ public class Spawner : MonoBehaviour
 
     private void SpawnPlatforms()
     {
-        while ( rightmostPlatform.GetComponent<SpriteRenderer>().IsVisibleFrom(Camera.main))
+        while (rightmostPlatformSR.IsVisibleFrom(Camera.main))
         {
-            Vector3 nextPos = rightmostPlatform.position + Vector3.right * platformSprite.bounds.size.x * 1.5f;
-            rightmostPlatform = Instantiate(platformPrefab, nextPos, Quaternion.identity) as Transform;
+            Vector3 nextPos = rightmostPlatformSR.transform.position + Vector3.right * platformSprite.bounds.size.x * 1.5f;
+
+            SpawnPlatform(nextPos);
         }
+    }
+
+    private void SpawnPlatform(Vector3 nextPos)
+    {
+        rightmostPlatformSR = GameObjectUtil.Instantiate(platformPrefab.gameObject, nextPos)
+            .GetComponent<SpriteRenderer>();
+
+        GameObjectUtil.Instantiate(coinTransform.gameObject,
+               rightmostPlatformSR.bounds.center + Vector3.up * jumpHeight);
     }
 }
