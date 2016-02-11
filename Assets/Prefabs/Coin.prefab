@@ -9,6 +9,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 458384}
   - 212: {fileID: 21249134}
+  - 114: {fileID: 11494452}
+  - 114: {fileID: 11410846}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -28,6 +30,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11410846
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 178678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cbdeedd84adeb94f900d11125de91c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyDist: 1
+--- !u!114 &11494452
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 178678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de20c1973c170144fa8bd4cc020645a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &21249134
 SpriteRenderer:
   m_ObjectHideFlags: 1

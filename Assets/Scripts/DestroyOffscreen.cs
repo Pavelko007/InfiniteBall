@@ -5,26 +5,28 @@ public class DestroyOffscreen : MonoBehaviour
 {
     public delegate void OnDestroy();
     public event OnDestroy DestroyCallback;
-
-    private bool offscreen;
-
+    
     /// <summary>
     /// distance in Viewport coordinates 
     /// when object is offscreen to this distance he will be destroyed
     /// </summary>
-    private float destroyDistX = 1;
+    [SerializeField] private float destroyDist = .5f;
 
     // Update is called once per frame
     void Update()
     {
-        offscreen = Camera.main.WorldToViewportPoint(transform.position).x < -destroyDistX;
+        if (IsOffscreen()) OnOutOfBounds();
+    }
 
-        if (offscreen) OnOutOfBounds();
+    private bool IsOffscreen()
+    {
+        Vector3 viewportPoint = Camera.main.WorldToViewportPoint(transform.position);
+
+        return viewportPoint.x < -destroyDist || viewportPoint.y < -destroyDist;
     }
 
     public void OnOutOfBounds()
     {
-        offscreen = false;
         GameObjectUtil.Destroy(gameObject);
 
         if (DestroyCallback != null) DestroyCallback();

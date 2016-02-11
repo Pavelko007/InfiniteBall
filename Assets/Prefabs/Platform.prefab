@@ -12,6 +12,8 @@ GameObject:
   - 50: {fileID: 5012356}
   - 61: {fileID: 6197808}
   - 114: {fileID: 11428626}
+  - 114: {fileID: 11442498}
+  - 114: {fileID: 11422952}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Untagged
@@ -62,6 +64,18 @@ BoxCollider2D:
   m_Offset: {x: 1.25, y: 0.3125}
   serializedVersion: 2
   m_Size: {x: 2.5, y: 0.625}
+--- !u!114 &11422952
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 128712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cbdeedd84adeb94f900d11125de91c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyDist: 0.5
 --- !u!114 &11428626
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -76,6 +90,17 @@ MonoBehaviour:
   fallDelay: 1
   numJumps: 1
   infiniteJumps: 1
+--- !u!114 &11442498
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 128712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de20c1973c170144fa8bd4cc020645a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &21241050
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -116,6 +141,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: infiniteJumps
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: destroyDist
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
