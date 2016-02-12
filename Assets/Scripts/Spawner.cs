@@ -3,16 +3,17 @@ using UnityEngine;
 using InfiniteBall;
 using InfiniteBall.Extentions;
 using InfiniteBall.Pooling;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField]
-    private Transform platformPrefab;
-    [SerializeField]
-    private Transform ballPrefab;
-    [SerializeField]
-    private Transform coinTransform;
+    [SerializeField] private Transform platformPrefab;
+    [SerializeField] private Transform ballPrefab;
+    [SerializeField] private Transform coinPrefab;
+
+    [SerializeField] private int maxNumCoins = 3;
+    [SerializeField] private float platformHeightVariation = 2;
 
     private SpriteRenderer lastPlatformSR;
     private Sprite platformSprite;
@@ -22,9 +23,7 @@ public class Spawner : MonoBehaviour
     void Start()
     {
         SpawnBall();
-
         SpawnPlatform(Vector3.zero, PlatformType.Steady);
-
         SpawnPlatforms();
     }
 
@@ -47,11 +46,21 @@ public class Spawner : MonoBehaviour
     {
         while (lastPlatformSR.IsVisibleFrom(Camera.main))
         {
-            Vector3 nextPos = lastPlatformSR.transform.position + Vector3.right * platformSprite.bounds.size.x * 1.5f;
-
-            PlatformType platformType = (PlatformType)Random.Range(0, Enum.GetValues(typeof(PlatformType)).Length);
-            SpawnPlatform(nextPos, platformType);
+            SpawnPlatform(GetRandomPlatformPos(), GetRandomPlatform());
         }
+    }
+
+    private Vector3 GetRandomPlatformPos()
+    {
+        return new Vector2(
+            lastPlatformSR.transform.position.x + platformSprite.bounds.size.x * 1.5f,
+            lastPlatformSR.transform.position.y + Random.Range(-platformHeightVariation, platformHeightVariation)
+            );
+    }
+
+    private static PlatformType GetRandomPlatform()
+    {
+        return (PlatformType)Random.Range(0, Enum.GetValues(typeof(PlatformType)).Length);
     }
 
     private void SpawnPlatform(Vector3 nextPos, PlatformType platformType)
@@ -60,14 +69,14 @@ public class Spawner : MonoBehaviour
             .GetComponent<SpriteRenderer>();
 
         lastPlatformSR.GetComponent<FallingPlatform>().SetupPlatform(platformType);
-
-        int numCoins = Random.Range(0, 4);
+        
+        int numCoins = Random.Range(0, maxNumCoins + 1);
         while (numCoins-- > 0) SpawnCoin(lastPlatformSR);
     }
 
     private void SpawnCoin(SpriteRenderer platformSR)
     {
-        GameObjectUtil.Instantiate(coinTransform.gameObject, GetRandomCoinPos(platformSR));
+        GameObjectUtil.Instantiate(coinPrefab.gameObject, GetRandomCoinPos(platformSR));
     }
 
     private Vector2 GetRandomCoinPos(SpriteRenderer platformSR)
