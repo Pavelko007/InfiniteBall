@@ -7,29 +7,32 @@ using Random = UnityEngine.Random;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private Transform platformPrefab;
-    [SerializeField] private Transform ballPrefab;
-    [SerializeField] private Transform coinTransform;
+    [SerializeField]
+    private Transform platformPrefab;
+    [SerializeField]
+    private Transform ballPrefab;
+    [SerializeField]
+    private Transform coinTransform;
 
     private SpriteRenderer lastPlatformSR;
     private Sprite platformSprite;
     private float jumpHeight;
-    
+
     // Use this for initialization
-	void Start ()
-	{
-	    SpawnBall();
+    void Start()
+    {
+        SpawnBall();
 
-	    SpawnPlatform(Vector3.zero, PlatformType.Steady);
+        SpawnPlatform(Vector3.zero, PlatformType.Steady);
 
-	    SpawnPlatforms();
-	}
+        SpawnPlatforms();
+    }
 
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
-	    SpawnPlatforms();
-	}
+        SpawnPlatforms();
+    }
 
     private void SpawnBall()
     {
@@ -58,6 +61,21 @@ public class Spawner : MonoBehaviour
 
         lastPlatformSR.GetComponent<FallingPlatform>().SetupPlatform(platformType);
 
-        GameObjectUtil.Instantiate(coinTransform.gameObject, lastPlatformSR.bounds.center + Vector3.up * jumpHeight);
+        int numCoins = Random.Range(0, 4);
+        while (numCoins-- > 0) SpawnCoin(lastPlatformSR);
+    }
+
+    private void SpawnCoin(SpriteRenderer platformSR)
+    {
+        GameObjectUtil.Instantiate(coinTransform.gameObject, GetRandomCoinPos(platformSR));
+    }
+
+    private Vector2 GetRandomCoinPos(SpriteRenderer platformSR)
+    {
+        //TODO: verify that no coins overlap
+        Bounds bounds = platformSR.bounds;
+        return new Vector2(
+            bounds.min.x + Random.Range(0, bounds.size.x),
+            bounds.max.y + Random.Range(jumpHeight / 5, jumpHeight));
     }
 }
