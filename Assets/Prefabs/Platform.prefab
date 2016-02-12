@@ -16,7 +16,7 @@ GameObject:
   - 114: {fileID: 11422952}
   m_Layer: 0
   m_Name: Platform
-  m_TagString: Untagged
+  m_TagString: platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,6 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bec4ecdeea28094abf854ef573f77af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb2d: {fileID: 0}
   fallDelay: 1
   numJumps: 1
   infiniteJumps: 1
@@ -145,6 +146,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: destroyDist
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: platform
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
