@@ -9,6 +9,11 @@ namespace InfiniteBall.Pooling
 
         private List<RecycleGameObject> poolInstances = new List<RecycleGameObject>();
 
+        void Awake()
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+
         private RecycleGameObject CreateInstance(Vector3 pos){
 
             var clone = GameObject.Instantiate (prefab);
@@ -38,5 +43,12 @@ namespace InfiniteBall.Pooling
             return instance;
         }
 
+        public void ShutdownAll()
+        {
+            foreach (RecycleGameObject recycleGameObject in poolInstances)
+            {
+                recycleGameObject.Shutdown();
+            }
+        }
     }
 }

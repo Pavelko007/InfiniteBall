@@ -48,5 +48,12 @@ namespace InfiniteBall.Pooling
             return pool;
         }
 
+        public static void ShutdownAll()
+        {
+            foreach (ObjectPool objectPool in pools.Values)
+            {
+                objectPool.ShutdownAll();
+            }
+        }
     }
 }

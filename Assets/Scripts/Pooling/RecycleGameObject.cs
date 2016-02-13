@@ -3,39 +3,49 @@ using UnityEngine;
 
 namespace InfiniteBall.Pooling
 {
-    public interface IRecyle{
+    public interface IRecyle
+    {
 
         void Restart();
         void Shutdown();
     }
 
-    public class RecycleGameObject : MonoBehaviour {
+    public class RecycleGameObject : MonoBehaviour
+    {
 
         private List<IRecyle> recycleComponents;
 
-        void Awake(){
+        void Awake()
+        {
+            DontDestroyOnLoad(gameObject);
 
-            var components = GetComponents<MonoBehaviour> ();
-            recycleComponents = new List<IRecyle> ();
-            foreach (var component in components) {
-                if(component is IRecyle){
-                    recycleComponents.Add (component as IRecyle);
+            var components = GetComponents<MonoBehaviour>();
+            recycleComponents = new List<IRecyle>();
+            foreach (var component in components)
+            {
+                if (component is IRecyle)
+                {
+                    recycleComponents.Add(component as IRecyle);
                 }
             }
         }
 
-        public void Restart(){
-            gameObject.SetActive (true);
+        public void Restart()
+        {
+            gameObject.SetActive(true);
 
-            foreach (var component in recycleComponents) {
+            foreach (var component in recycleComponents)
+            {
                 component.Restart();
             }
         }
 
-        public void Shutdown(){
-            gameObject.SetActive (false);
+        public void Shutdown()
+        {
+            gameObject.SetActive(false);
 
-            foreach (var component in recycleComponents) {
+            foreach (var component in recycleComponents)
+            {
                 component.Shutdown();
             }
         }

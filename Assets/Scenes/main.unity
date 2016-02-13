@@ -217,7 +217,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platformPrefab: {fileID: 421972, guid: 7d58412a984f8c942ab47b50b543c84e, type: 2}
   ballPrefab: {fileID: 467032, guid: af767ea9329fd3a419fa2f62b3ff2a08, type: 2}
-  coinTransform: {fileID: 458384, guid: 85c559fbdce9cc74bbba741075487fff, type: 2}
+  coinPrefab: {fileID: 458384, guid: 85c559fbdce9cc74bbba741075487fff, type: 2}
+  maxNumCoins: 3
+  platformHeightVariation: 2
 --- !u!4 &985373992
 Transform:
   m_ObjectHideFlags: 0

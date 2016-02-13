@@ -6,7 +6,7 @@ namespace InfiniteBall
 {
     public class FallingPlatform : MonoBehaviour
     {
-        public Rigidbody2D rb2d;
+        [HideInInspector] public Rigidbody2D rb2d;
 
         [SerializeField] private float fallDelay;
         [SerializeField] public int numJumps;

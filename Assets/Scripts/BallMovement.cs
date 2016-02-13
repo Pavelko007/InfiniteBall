@@ -8,7 +8,7 @@ namespace InfiniteBall
         [SerializeField] public float JumpHeight = 1;
 
         private Rigidbody2D rb;
-        private bool isGrounded;
+        [HideInInspector] public bool isGrounded;
         private float horAxis;
         private float impulse;
         private const int VertSpeedMult = 100;
@@ -49,7 +49,8 @@ namespace InfiniteBall
 
         private void SetGrounded(Collision2D collision2D, bool grounded)
         {
-            if (collision2D.gameObject.tag != "platform") return;
+            if (!collision2D.gameObject.CompareTag("platform")) return;
+
             isGrounded = grounded;
         }
     }
